@@ -12,3 +12,20 @@
       - Brute Forcing with DNS Resolvers
       - Error-Based Enumeration
       
+## Directory and File Structure :
+
+C:.
+│   Dockerfile
+│   LICENSE
+│   main.py
+│   README.md
+│   requirements.txt
+│   setup.py
+│   SubRadar.py
+│
+├───DNS Word List
+│       top-1mil.txt
+│       top-20k.txt
+│
+└───Packages
+        web_scrapping.py
