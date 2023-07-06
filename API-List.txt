@@ -1,0 +1,10 @@
+// List of API's and Service's for Subdomain Finder
+
+https://api.hackertarget.com/reversedns/?q={google.com}
+
+https://github.com/PaulSec/API-dnsdumpster.com
+
+Need API Key :
+
+https://pentest-tools.com/api-reference/sample-api-client
+
