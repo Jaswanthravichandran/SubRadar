@@ -1,5 +1,7 @@
 import dns.resolver
 import argparse
+from prettytable import PrettyTable
+import concurrent.futures
 
 # ANSI escape sequences for text color
 class Color:
@@ -15,18 +17,24 @@ def read_wordlist(wordlist_file):
     return wordlist
 
 # Resolving subdomains using the DNS protocol
-def resolve_subdomains(wordlist, target_domain):
+def resolve_subdomain(subdomain, target_domain):
+    domain = subdomain + "." + target_domain
+    try:
+        answers = dns.resolver.resolve(domain)
+        return [answer.to_text() for answer in answers]
+    except dns.resolver.NoAnswer:
+        pass
+    except dns.resolver.NXDOMAIN:
+        pass
+    return []
+
+# Resolving subdomains concurrently
+def resolve_subdomains_concurrently(wordlist, target_domain):
     resolved_subdomains = []
-    for subdomain in wordlist:
-        domain = subdomain + "." + target_domain
-        try:
-            answers = dns.resolver.resolve(domain)
-            for answer in answers:
-                resolved_subdomains.append(answer.to_text())
-        except dns.resolver.NoAnswer:
-            pass
-        except dns.resolver.NXDOMAIN:
-            pass
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        results = [executor.submit(resolve_subdomain, subdomain, target_domain) for subdomain in wordlist]
+        for future in concurrent.futures.as_completed(results):
+            resolved_subdomains.extend(future.result())
     return resolved_subdomains
 
 # Performing a reverse DNS lookup on the IP address of a subdomain
@@ -37,12 +45,14 @@ def reverse_dns_lookup(ip_address):
     except (dns.resolver.NoAnswer, dns.resolver.NXDOMAIN):
         return ip_address
 
-# Printing the resolved subdomains in color
-def print_colored_subdomains(subdomains):
+# Printing the resolved subdomains in a table
+def print_subdomains_table(subdomains):
     if subdomains:
-        print(f"{Color.GREEN}Resolved Subdomains:{Color.RESET}")
+        table = PrettyTable()
+        table.field_names = ["Subdomain", "IP Address"]
         for subdomain in subdomains:
-            print(f"{Color.YELLOW}{reverse_dns_lookup(subdomain)}{Color.RESET}")
+            table.add_row([reverse_dns_lookup(subdomain), subdomain])
+        print(f"{Color.GREEN}{table}{Color.RESET}")
     else:
         print(f"{Color.RED}No subdomains found.{Color.RESET}")
 
@@ -60,10 +70,10 @@ def main():
     args = parser.parse_args()
 
     wordlist = read_wordlist(args.wordlist)
-    resolved_subdomains = resolve_subdomains(wordlist, args.target_domain)
+    resolved_subdomains = resolve_subdomains_concurrently(wordlist, args.target_domain)
     save_subdomains_to_file(resolved_subdomains, args.file_name)
 
-    print_colored_subdomains(resolved_subdomains)
+    print_subdomains_table(resolved_subdomains)
 
 if __name__ == "__main__":
     main()
