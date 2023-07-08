@@ -1,3 +1,13 @@
+'''
+
+                !!! CODE IS NOT WORKING AS EXPECTED !!!
+                !!! NEED TO BE FIXED !!!
+                !!! IN UPCOMING VERSIONS !!!
+                !!! DO NOT USE THIS CODE !!!
+
+'''
+
+
 import requests
 
 def dns_dumpster(domain):
