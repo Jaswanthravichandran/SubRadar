@@ -1,9 +1,10 @@
 <div align="center">
 <p align="center">
-  <img width="234" src="./Images/Logo.png"/>
-  <h4> SubRadar is a Subdomain Enumiration Tool.</h4>
+  <img alt="Loading Error" width="234" src="./Images/logo.png"/>
+  <h4> SubRadar is a Subdomain Enumeration Tool.</h4>
 </p>
 </div>
+
 ---
 
 # SubRadar
