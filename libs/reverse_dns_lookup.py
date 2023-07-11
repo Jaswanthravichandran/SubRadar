@@ -55,5 +55,3 @@ def main():
 
     print_colored_domains(domains)
 
-if __name__ == "__main__":
-    main()

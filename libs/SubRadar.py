@@ -18,8 +18,26 @@ from concurrent.futures import ThreadPoolExecutor
 import time
 
 
+class Colors:
+    GREEN = "\033[92m"
+    RED = "\033[91m"
+    YELLOW = "\033[93m"
+    RESET = "\033[0m"
+
+
+
+def func_call(*args, **kwargs):
+    pass
+
+
 def main():
     parser = argparse.ArgumentParser(
         prog="SubRadar",
-        description="Subdomain Enumeration using Reverse DNS Lookups")
-    pass
+        description="Use with -h or --help for help")
+    parser.add_argument("-d", "--domain", help="Domain to scan", required=True)
+    parser.add_argument("-o", "--output", help="Output file name")
+    parser.add_argument("-t", "--threads", help="Number of threads", default=10)
+    parser.add_argument()
+    args = parser.parse_args()
+    result = func_call(args.domain, args.output, args.threads)
+    print(f"{Colors.GREEN}result{Colors.RESET}")
