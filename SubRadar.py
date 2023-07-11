@@ -1,7 +1,6 @@
 import os
 import sys
-
-# from libs.SubRadar import SubRadar
+from libs.SubRadar import main as SubRadar
 
 # Main code here..
 
@@ -25,13 +24,18 @@ banner = """
                 .~777???77!^                                                                                                                           
               :!????????????7^.                                                                                                                        
             .!????????????????7^                                                                                                                       
-             :::::::::::::::::::                                                                                                                                                                     
-                                                        
+             :::::::::::::::::::       
+
+             Version 1.0.0                                                                                                                                                              
+             Author: @Jaswanthravichandran
+             Github: https://github.com/Jaswanthravichandran    
+                                     
 
 """
 
 
 def main():
     print(banner)
+    SubRadar()
 
 main()

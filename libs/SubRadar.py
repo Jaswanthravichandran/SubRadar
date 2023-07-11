@@ -16,7 +16,7 @@ import concurrent
 import sys
 from concurrent.futures import ThreadPoolExecutor
 import time
-
+# import dns_dumpster
 
 class Colors:
     GREEN = "\033[92m"
@@ -27,7 +27,19 @@ class Colors:
 
 
 def func_call(*args, **kwargs):
-    pass
+    if args.domain:
+        dns_dump = dns_dumpster.dns_dump(args.domain)
+        dns_dump_result = dns_dump.dns_dumpster(args.domain)   
+        return dns_dump_result
+    elif args.output and args.domain:
+        file = open(args.output, "w")
+        pass
+    elif args.domain and args.threads:
+        pass
+    elif args.domain and args.output and args.threads:
+        pass
+    else:
+        pass
 
 
 def main():
@@ -37,7 +49,7 @@ def main():
     parser.add_argument("-d", "--domain", help="Domain to scan", required=True)
     parser.add_argument("-o", "--output", help="Output file name")
     parser.add_argument("-t", "--threads", help="Number of threads", default=10)
-    parser.add_argument()
+    
     args = parser.parse_args()
     result = func_call(args.domain, args.output, args.threads)
     print(f"{Colors.GREEN}result{Colors.RESET}")

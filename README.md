@@ -24,18 +24,18 @@
 ## Directory and File Structure :
 ```
 C:.
-│   Dockerfile
-│   LICENSE
-│   main.py
-│   README.md
-│   requirements.txt
-│   setup.py
-│   SubRadar.py
-│
-├───DNS Word List
-│       top-1mil.txt
-│       top-20k.txt
-│
-└───Packages
-        web_scrapping.py
+├───Images
+├───libs
+│   └───__pycache__
+├───Tools
+│   └───knock
+│       ├───knockpy
+│       │   ├───lib
+│       │   │   └───__pycache__
+│       │   ├───local
+│       │   ├───remote
+│       │   │   └───__pycache__
+│       │   └───__pycache__
+│       └───knockpy_report
+└───Wordlist
 ```
